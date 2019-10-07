@@ -2,8 +2,9 @@ const express = require('express') ;
 
 
 const dbConnect = require('./config/db');
-const app= express();
+const app = express();
 
+const a= 3;
 
 dbConnect();
 
