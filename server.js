@@ -1,19 +1,24 @@
 const express = require('express') ;
-
-
 const dbConnect = require('./config/db');
 const app = express();
 
-const a= 3;
+const usersRoutes = require('./routes/users');
+const authRoutes = require('./routes/auth');
+const postsRoutes = require('./routes/posts');
+const profileRoutes = require('./routes/profile');
 
 dbConnect();
 
 
-app.get('/', (req , res) => {
+app.use(express.json());
 
-    res.status(200).json({"message": "hello ff world"});
 
-});
+app.use('/api/users', usersRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/posts', postsRoutes);
+app.use('/api/profile', profileRoutes);
+
+
 
 const PORT = process.env.PORT || 5000 ;
 
