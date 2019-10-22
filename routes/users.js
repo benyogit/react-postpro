@@ -5,6 +5,8 @@ const {check, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const ROUNDS = 10;
 
+const config = require('config');
+
 const User = require('../model/Users');
 const jwt = require('jsonwebtoken');
 
@@ -37,7 +39,7 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
             password
         });
 
-        const salt = await bcrypt.genSalt(ROUNDS); 
+        const salt = await bcrypt.genSalt(10); 
         user.password = await bcrypt.hash(password, salt);
         await user.save();
 
@@ -46,19 +48,20 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
               id: user.id
             }
           };
-    
+          
+
           jwt.sign(
             payload,
             config.get('jwtSecret'),
             { expiresIn: 360000 },
             (err, token) => {
               if (err) throw err;
-              res.json({ token });
+              res.status(200).json({ token });
             }
           );
 
     }catch(err){
-
+      res.status(500).json({errors: [{msg: "Server Error"}]});
     }
 } );
 
