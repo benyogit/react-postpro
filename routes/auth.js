@@ -10,7 +10,7 @@ const config = require('config');
 
 router.get('/',auth, (req, res)=> {
 
-    console.log(req);
+    
     res.status(200).json({message:"Good "});
 } );
 
