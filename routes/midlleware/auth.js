@@ -5,9 +5,10 @@ module.exports =(req, res, next)=>{
 
     const token= req.header('x-auth-token');
 
+    
     if(!token){
-        return res.status(401).json({msg:" No Token Found, please Login or Register"});
 
+        return res.status(401).json({msg:" No Token Found, please Login or Register"});
     }
 
     try{
@@ -18,6 +19,8 @@ module.exports =(req, res, next)=>{
         next();
 
     }catch(err){
+        console.log("Bad Token");
+
         return res.status(401).json({msg:" Invalid Token"});
     }
 }

@@ -1,10 +1,17 @@
 import React, { Fragment } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import Moment from "react-moment";
 
-const PostItem = props => {
-  console.log(props.post);
+import Moment from 'react-moment'
+import PropTypes from "prop-types";
+
+
+/*
+<Moment format="YYYY/MM/DD hh:mm">{props.post.date}</Moment>
+*/
+const PostItem = (props) => {
+
+  
+
   return (
     <div className="post bg-white p-1 my-1">
       <div>
@@ -17,28 +24,49 @@ const PostItem = props => {
         <p className="my-1">{props.post.title}</p>
         <p className="post-date">
           Posted on <Moment format="YYYY/MM/DD hh:mm">{props.post.date}</Moment>
+
         </p>
-      </div>
+      
       <Fragment>
         <button onClick={props.liked} type="button" className="btn btn-light">
           <i className="fas fa-thumbs-up" />{" "}
-          <span>{props.post.likes ? 0 : props.post.likes.length}</span>
+          <span>{props.post.likes ? props.post.likes.length : 0}</span>
         </button>
 
         <button
+          
           onClick={props.unLiked}
           type="button"
           className="btn btn-light"
         >
           <i className="fas fa-thumbs-down" />
         </button>
+
+        <Link to={`/posts/${props.post.id}`} className='btn btn-primary'>
+            Discussion{' '}
+            {props.post.comments.length > 0 && (
+              <span className='comment-count'>{props.post.comments.length}</span>
+            )}
+          </Link>
+          {props.curUser!==null && props.curUser === props.post.user && (
+            <button
+              onClick={props.deleted}
+              type='button'
+              className='btn btn-danger'
+            >
+              <i className='fas fa-times' />
+            </button>
+          )}
       </Fragment>
+    </div>
     </div>
   );
 };
 
 PostItem.propTypes = {
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  unLiked: PropTypes.func.isRequired,
+  
 };
 
 export default PostItem;

@@ -31,7 +31,8 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
 
         let user= await User.findOne({email});
         if(user){
-            return res.status(400).json({errors: [{msg: "User already Exists"}]});
+            console.log("User exists.");
+            return res.status(400).json({msg: "User already Exists"});
         }
         user = new User({
             name,
@@ -53,15 +54,15 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
           jwt.sign(
             payload,
             config.get('jwtSecret'),
-            { expiresIn: 360000 },
+            { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
-              res.status(200).json({ token });
+              res.status(200).json({ token, expiresIn:3600, userId: user.id });
             }
           );
 
     }catch(err){
-      res.status(500).json({errors: [{msg: "Server Error"}]});
+      res.status(500).json({msg: "Server Error"});
     }
 } );
 

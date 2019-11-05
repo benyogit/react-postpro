@@ -50,15 +50,15 @@ check("email","Bad Credintials").not().isEmpty()
           jwt.sign(
             payload,
             config.get('jwtSecret'),
-            { expiresIn: 360000 },
+            { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
-              res.status(200).json({ token });
+              res.status(200).json({ token, expiresIn:3600, userId:user.id});
             }
           );
 
     }catch(err){
-      res.status(500).json({errors: [{msg: "Server Error"}]});
+      res.status(500).json({msg: "Server Error"});
     }
 } );
 module.exports = router;
