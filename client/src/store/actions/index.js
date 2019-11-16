@@ -12,6 +12,11 @@ export {
 
 export {
 
+} from './profile';
+
+
+export {
+
     signUp,
     signIn,
     loadUser,

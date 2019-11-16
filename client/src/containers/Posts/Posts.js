@@ -9,9 +9,7 @@ import PostItem from "../../components/Post/PostItem";
 class Posts extends Component {
   componentDidMount() {
 
-    console.log(new Date());
-    console.log(localStorage.getItem("expiresIn"));
-    console.log(localStorage.getItem("token"));
+    
     this.props.onFetchPosts();
   }
 

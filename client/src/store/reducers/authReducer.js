@@ -30,8 +30,6 @@ const logOut = (state, action) => {
 };
 
 const reducer = (state = initialState, action) => {
-
-
   switch (action.type) {
     case actionTypes.AUTH_SUCCESS:
       return authSuccess(state, action);

@@ -47,36 +47,40 @@ router.post(
   }
 );
 
+
+
+// @route    GET api/posts/:id
+// @desc     Get one post
+// @access   Public
+router.get("/:id", async (req, res) => {
+  try {
+    const post = await Post.findById({_id:req.params.id});
+    if(!post){
+      return res.status(200).json({msg:"Couldn't find this post"});
+    }
+    
+    res.status(200).json({ post });
+  } catch (err) {
+    
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    GET api/posts
 // @desc     Get all posts
 // @access   Public
 router.get("/", async (req, res) => {
   try {
+    
+
     const posts = await Post.find().sort({ date: -1 });
     res.status(200).json({ posts });
   } catch (err) {
 
-    res.status(500).send("Server Error");
+    res.status(500).json({msg : "Server Error"});
   }
 });
-/*
-router.delete("/:id", auth, async (req, res) => {
-  try {
-    console.log("reach delete");
 
-    const posts = await Post.deleteOne({_id: req.params.id, user:req.user.id});
-    console.log(posts);
-
-    if(posts.n>0){
-      res.status(200).json({ posts });
-    }else{
-      res.status(400).json({ msg:"Bad Token or message already deleted" });
-    }
-  } catch (err) {
-
-    res.status(400).json( {msg:"Server Error"});
-  }
-});*/
 router.delete("/:id", auth, async (req, res) => {
   try {
     const post = await Post.findOne({_id: req.params.id,user:req.user.id });

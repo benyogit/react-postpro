@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 */
 const PostItem = (props) => {
 
-  
+  console.log(props.post);
 
   return (
     <div className="post bg-white p-1 my-1">
@@ -42,7 +42,7 @@ const PostItem = (props) => {
           <i className="fas fa-thumbs-down" />
         </button>
 
-        <Link to={`/posts/${props.post.id}`} className='btn btn-primary'>
+        <Link onClick={props.onGetPost} to={`/posts/${props.post._id}`} className='btn btn-primary'>
             Discussion{' '}
             {props.post.comments.length > 0 && (
               <span className='comment-count'>{props.post.comments.length}</span>

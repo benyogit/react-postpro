@@ -16,6 +16,8 @@ import Landing from "./components/Landing/Landing";
 import Register from "./containers/Auth/Register";
 import Login from "./containers/Auth/Login";
 import NewPost from "./components/Post/NewPost";
+import PrivateRoute from "./hoc/PrivateRoute";
+import FullPost from "./components/Post/FullPost/FullPost";
 
 const rootReducers = combineReducers({
   posts: postsReducer,
@@ -42,10 +44,11 @@ const App = () => {
           <section className="container">
             <Switch>
               <Route exact path="/" component={Landing}/>
+              <Route exact path="/posts/:id" component={FullPost}/>
               <Route exact path="/posts" component={Posts}/>
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
-              <Route exact path="/newPost" component={NewPost}/>
+              <PrivateRoute exact path="/newPost" component={NewPost}/>
               <Redirect to="/"> </Redirect>
             </Switch>
           </section>

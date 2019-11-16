@@ -1,9 +1,9 @@
 import * as actionTypes from "../actions/actionTypes";
 import { updateObject } from "../utility";
 
-
 const initialState = {
   posts: [],
+  post: null,
   loading: false,
   error: null
 };
@@ -21,12 +21,10 @@ const fetchPostsSuccess = (state, action) => {
 };
 
 const addPost = (state, action) => {
-
-  
-  let updatedPosts= state.posts.concat(action.post);
+  let updatedPosts = state.posts.concat(action.post);
   console.log("adding post to to state.posts");
   console.log(updatedPosts);
-  return updateObject(state, {posts:updatedPosts ,loading: false});
+  return updateObject(state, { posts: updatedPosts, loading: false });
 };
 
 const deletePost = (state, action) => {
@@ -46,6 +44,8 @@ const reducer = (state = initialState, action) => {
       return deletePost(state, action);
     case actionTypes.ADD_POST:
       return addPost(state, action);
+    case actionTypes.GET_POST:
+      return updateObject(state, { post: action.post, loading: false });
     case actionTypes.UPDATE_LIKES:
       return {
         ...state,

@@ -7,15 +7,29 @@ const config = {
   }
 };
 
-export const getPost = postId => {};
+export const getPost = postId => async dispatch => {
+  try {
+    dispatch(fetchPostsStart());
+    const res = await axios.get(`/api/posts/${postId}`);
 
-export const addPost = (
-  title,
-  text,
-) => async dispatch => {
+    dispatch({
+      type:actionTypes.GET_POST,
+      post: res.data.post
+    });
+
+  } catch (err) {
+    const msg= err.response? err.response.msg: "Error in post/id";
+    dispatch({
+      type: actionTypes.POST_ERROR,
+      msg: msg
+    });
+  }
+};
+
+export const addPost = (title, text) => async dispatch => {
   const body = JSON.stringify({ title, text });
 
-
+  
   try {
     dispatch(fetchPostsStart());
     axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
@@ -23,26 +37,17 @@ export const addPost = (
     );
     const res = await axios.post("/api/posts", body, config);
 
-    
-    
     dispatch({
       type: actionTypes.ADD_POST,
-      post:res.data
+      post: res.data
     });
-    
-
-
   } catch (err) {
-    
     dispatch({
       type: actionTypes.POST_ERROR,
       msg: err.response.msg
     });
-
   }
 };
-
-
 
 export const unLikePost = id => {
   return dispatch => {
@@ -100,7 +105,7 @@ export const deletePost = postId => {
       "token"
     );
     axios
-      .delete(`/api/posts/${postId}`,config)
+      .delete(`/api/posts/${postId}`, config)
       .then(res => {
         dispatch({
           type: actionTypes.DELETE_POST,
@@ -144,16 +149,14 @@ export const fetchPosts = () => {
       .get("api/posts")
       .then(response => {
         const fetchPosts = [];
-        
+        console.log("in Fetch Posts");
         for (let key in response.data.posts) {
           fetchPosts.push({
             ...response.data.posts[key],
             id: response.data.posts[key]._id
           });
-          console.log("in Fetch Posts" + key);
-
+          
         }
-        
 
         dispatch(fetchPostsSuccess(fetchPosts));
       })
