@@ -31,7 +31,10 @@ const deletePost = (state, action) => {
   let updatedPosts = state.posts.filter(post => post.id !== action.id);
   return updateObject(state, { posts: updatedPosts });
 };
+const deleteComment = (state, action) => {
 
+  return updateObject(state, { post: {...state.post, comments:action.comments}, loading:false });
+};
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_POSTS_SUCCESS:
@@ -54,6 +57,10 @@ const reducer = (state = initialState, action) => {
         ),
         loading: false
       };
+    case actionTypes.ADD_COMMENT:
+      return updateObject(state,{ post: { ...state.post, comments: action.comments }, loading: false });
+    case actionTypes.DELETE_COMMENT:
+      return deleteComment(state, action);
     case actionTypes.POST_ERROR:
       return updateObject(state, { error: action.msg });
 

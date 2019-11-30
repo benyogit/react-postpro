@@ -7,7 +7,10 @@ export {
     likePost,
     unLikePost,
     addPost,
-    getPost
+    getPost,
+    addComment,
+    deleteComment
+
 } from './posts';
 
 export {

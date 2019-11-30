@@ -1,45 +1,63 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Spiner from "../../UI/spiner";
 import { Editor, EditorState , convertFromRaw } from "draft-js";
 import {  } from "draft-js-export-html";
+
+import styles from './FullPost.css';
 import { connect } from "react-redux";
+import { getPost, addComment, deleteComment } from "../../../store/actions";
+import CommentSection from "./CommentSection/CommentSection";
 
 class FullPost extends Component {
 
 
   constructor(props){
     super(props);
-    this.state = {editorState: EditorState.createEmpty()};
+    this.state = {editorState: EditorState.createEmpty(),title: null};
     
 
   }
-  componentDidUpdate(prevProps){
+  componentDidUpdate(prevProps) {
 
-    console.log("componentDIDupdate: ");
+    
     if(this.props.post !== prevProps.post){
-      console.log("componentDIDupdate: "+ this.props.post.text);
+      
+      
       const text= JSON.parse(this.props.post.text);
-      this.setState({ editorState: EditorState.createWithContent(convertFromRaw(text))});
+      this.setState({ editorState: EditorState.createWithContent(convertFromRaw(text)), 
+        title:this.props.post.title});
     }
   }
   componentDidMount(){
 
-    console.log("componentDidMount: "+ this.props.post);
+    console.log(this.props.match);
+    this.props.onGetPost(this.props.match.params.id);
 
   }
 
   render() {
-    if (this.props.isLoading) {
+
+
+
+    if (this.props.isLoading && this.props.post===null ) {
       return <Spiner />;
     } else {
       
       return (
-        <div>
-          
+        <Fragment >
+          <h1 className="headline large">{this.state.title}</h1>
           <Editor editorState={this.state.editorState}>
-
           </Editor>
-        </div>
+          {!this.props.isLoading && this.props.post ?<CommentSection post={this.props.post} 
+          user={this.props.user} 
+          
+          commentAddition={this.props.onAddComment}
+          commentDeletion={this.props.onDeleteComment}
+          >
+          </CommentSection>:<Spiner />
+          }
+
+          </Fragment>
       );
     }
     
@@ -49,13 +67,18 @@ class FullPost extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.authenticated,
+    user: state.auth.userId,
     isLoading: state.posts.loading,
     post: state.posts.post
   };
 };
 
 const mapsDispatchToProps = dispatch => {
-  return {};
+  return {
+    onAddComment: (postId, text ) => dispatch(addComment(postId, text)),
+    onGetPost: (postId) => dispatch(getPost(postId)),
+    onDeleteComment: (postId, commentId) => dispatch(deleteComment(postId, commentId))
+  };
 };
 
 export default connect(

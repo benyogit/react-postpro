@@ -13,12 +13,11 @@ export const getPost = postId => async dispatch => {
     const res = await axios.get(`/api/posts/${postId}`);
 
     dispatch({
-      type:actionTypes.GET_POST,
+      type: actionTypes.GET_POST,
       post: res.data.post
     });
-
   } catch (err) {
-    const msg= err.response? err.response.msg: "Error in post/id";
+    const msg = err.response ? err.response.msg : "Error in post/id";
     dispatch({
       type: actionTypes.POST_ERROR,
       msg: msg
@@ -29,7 +28,6 @@ export const getPost = postId => async dispatch => {
 export const addPost = (title, text) => async dispatch => {
   const body = JSON.stringify({ title, text });
 
-  
   try {
     dispatch(fetchPostsStart());
     axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
@@ -48,7 +46,46 @@ export const addPost = (title, text) => async dispatch => {
     });
   }
 };
-
+export const addComment = (postId, text) => async dispatch => {
+  const body = JSON.stringify({ text });
+  try {
+    dispatch(fetchPostsStart());
+    axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
+      "token"
+    );
+    const res = await axios.post(`/api/posts/comment/${postId}`, body, config);
+    dispatch({
+      type: actionTypes.ADD_COMMENT,
+      postId,
+      comments: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.POST_ERROR,
+      msg: "err.response.msg"
+    });
+  }
+};
+export const deleteComment = (postId, commentId) => async dispatch => {
+  
+  
+  try {
+    dispatch(fetchPostsStart());
+    axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
+      "token"
+    );
+    const res = await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+    dispatch({
+      type: actionTypes.DELETE_COMMENT,
+      comments:res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: actionTypes.POST_ERROR,
+      msg: "err.response.msg"
+    });
+  }
+};
 export const unLikePost = id => {
   return dispatch => {
     console.log("in like posts" + id);
@@ -155,7 +192,6 @@ export const fetchPosts = () => {
             ...response.data.posts[key],
             id: response.data.posts[key]._id
           });
-          
         }
 
         dispatch(fetchPostsSuccess(fetchPosts));
