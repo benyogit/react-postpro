@@ -14,7 +14,7 @@ class Posts extends Component {
   }
 
   render() {
-    console.log("Rendering in Post.js");
+
     return this.props.loading ? (
       <Spinner></Spinner>
     ) : (

@@ -15,6 +15,7 @@ export {
 
 export {
 
+    getProfile
 } from './profile';
 
 

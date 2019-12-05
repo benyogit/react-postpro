@@ -47,6 +47,9 @@ router.post(
   }
 );
 
+// @route    POST api/posts/comment/:id
+// @desc     Create a comment
+// @access   Private
 router.post(
   '/comment/:id',
   [
@@ -70,7 +73,8 @@ router.post(
       const newComment = {
         text: req.body.text,
         name: user.name,
-        user: req.user.id
+        user: req.user.id,
+        
       };
 
       post.comments.unshift(newComment);
@@ -86,7 +90,7 @@ router.post(
 );
 
 // @route    GET api/posts/:id
-// @desc     Get one post
+// @desc     Get a single Post
 // @access   Public
 router.get("/:id", async (req, res) => {
   try {
@@ -141,6 +145,7 @@ router.delete("/:id", auth, async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
 // @route    PUT api/posts/like/:id
 // @desc     Like a post
 // @access   Private
@@ -167,6 +172,9 @@ router.put("/like/:id", auth, async (req, res) => {
   }
 });
 
+// @route    PUT api/posts/like/:id
+// @desc     UnLike a post
+// @access   Private
 router.put("/unlike/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -229,8 +237,8 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
 
     res.json(post.comments);
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+
+    res.status(500).json({ msg: 'Server Error'});
   }
 });
 

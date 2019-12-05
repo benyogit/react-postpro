@@ -11,6 +11,8 @@ import { applyMiddleware } from "redux";
 import {loadUser} from './store/actions/index';
 import authReducer from "./store/reducers/authReducer";
 import postsReducer from "./store/reducers/postsReducer";
+import profilesReducer from "./store/reducers/profilesReducer";
+
 import Navbar from "./containers/Navbar/Navbar";
 import Landing from "./components/Landing/Landing";
 import Register from "./containers/Auth/Register";
@@ -18,10 +20,12 @@ import Login from "./containers/Auth/Login";
 import NewPost from "./components/Post/NewPost";
 import PrivateRoute from "./hoc/PrivateRoute";
 import FullPost from "./components/Post/FullPost/FullPost";
+import Dashboard from "./containers/Profile/Dashboard";
 
 const rootReducers = combineReducers({
   posts: postsReducer,
-  auth: authReducer
+  auth: authReducer,
+  profiles: profilesReducer
 });
 const middleWare = [thunk];
 const store = createStore(
@@ -49,6 +53,7 @@ const App = () => {
               <Route exact path="/register" component={Register}/>
               <Route exact path="/login" component={Login}/>
               <PrivateRoute exact path="/newPost" component={NewPost}/>
+              <PrivateRoute exact path="/dashboard" component={Dashboard}/>
               <Redirect to="/"> </Redirect>
             </Switch>
           </section>

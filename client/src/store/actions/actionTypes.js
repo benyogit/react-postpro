@@ -15,9 +15,20 @@ export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_FAILED = "AUTH_FAILED";
 export const AUTH_LOGOUT = "AUTH_LOGOUT";
 
+export const PROFILE_LOADING = "PROFILE_LOADING";
+
 export const GET_PROFILE = "GET_PROFILE";
 export const GET_PROFILES = "GET_PROFILES";
+
+export const ADD_SKILL = "ADD_SKILL";
+export const REMOVE_SKILL = "REMOVE_SKILL";
+
+export const ADD_EXPERIENCE = "ADD_EXPERIENCE";
+export const REMOVE_EXPERIENCE = "REMOVE_EXPERIENCE";
+
 export const EDIT_PROFILE = "EDIT_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
+export const PROFILE_ERROR = "PROFILE_ERROR";
+
 
 

@@ -30,7 +30,7 @@ class FullPost extends Component {
   }
   componentDidMount(){
 
-    console.log(this.props.match);
+
     this.props.onGetPost(this.props.match.params.id);
 
   }

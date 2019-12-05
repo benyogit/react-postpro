@@ -8,6 +8,7 @@ const ROUNDS = 10;
 const config = require('config');
 
 const User = require('../model/Users');
+const Profile = require('../model/Profiles');
 const jwt = require('jsonwebtoken');
 
 router.post('/', [check("name","Name is Required").not().isEmpty(),
@@ -21,9 +22,10 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
 
     
     const errors = validationResult(req);
-    
+
+
     if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+        return res.status(400).json({msg: errors.array()});
     }
     
     try {
@@ -31,19 +33,21 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
 
         let user= await User.findOne({email});
         if(user){
-            console.log("User exists.");
-            return res.status(400).json({msg: "User already Exists"});
+
+          return res.status(400).json({msg: "User already Exists"});
         }
         user = new User({
             name,
             email, 
             password
         });
-
+        
         const salt = await bcrypt.genSalt(10); 
         user.password = await bcrypt.hash(password, salt);
         await user.save();
-
+        
+        const profile = new Profile({name, user: user._id });
+        await profile.save();
         const payload = {
             user: {
               id: user.id
@@ -62,6 +66,7 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
           );
 
     }catch(err){
+      console.log(err);
       res.status(500).json({msg: "Server Error"});
     }
 } );

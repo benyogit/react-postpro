@@ -18,7 +18,7 @@ const CommentSection = (props) => {
     />);
   return (
     <div style={ {width: '80%', margin:"auto"}}>
-      <form
+      {props.user ? <form
         className="form my-1"
         onSubmit={addComment}
       >
@@ -29,7 +29,7 @@ const CommentSection = (props) => {
           placeholder="Comment on the Post"
         />
         <input type="submit"  className="btn btn-dark my-1" value="Comment" />
-      </form>
+      </form>:null}
       {commentsItems}
    
     </div>
