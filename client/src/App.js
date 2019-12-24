@@ -1,6 +1,7 @@
 import React, { Fragment , useEffect } from "react";
 import Posts from "./containers/Posts/Posts";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, combineReducers } from "redux";
@@ -22,11 +23,15 @@ import PrivateRoute from "./hoc/PrivateRoute";
 import FullPost from "./components/Post/FullPost/FullPost";
 import Dashboard from "./containers/Profile/Dashboard";
 
+
+
+
 const rootReducers = combineReducers({
   posts: postsReducer,
   auth: authReducer,
   profiles: profilesReducer
 });
+
 const middleWare = [thunk];
 const store = createStore(
   rootReducers,

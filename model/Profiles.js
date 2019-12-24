@@ -21,7 +21,7 @@ const ProfileSchema = new mongoose.Schema({
     {
       institute: { type: String, required: true },
       description: { type: String, required: true },
-      from: { type: Date, default: Date.now },
+      from: { type: Date, default: Date.now ,required: true},
       to: { type: Date, default: Date.now }
     }
   ],

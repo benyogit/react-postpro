@@ -27,11 +27,33 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REMOVE_SKILL:
       return updateObject(state, { loading: false });
 
+    case actionTypes.ADD_EDUCATION:
+      const addeducation = { ...state.profile, education: action.education };
+
+      return updateObject(state, {
+        profile: addeducation,
+        profileLoading: false
+      });
+
+    case actionTypes.DELETE_EDUCATION:
+      const educationDeleted = {
+        ...state.profile,
+        education: action.education
+      };
+      console.log(action.education);
+      return updateObject(state, {
+        profile: educationDeleted,
+        profileLoading: false
+      });
+
     case actionTypes.ADD_EXPERIENCE:
-      return updateObject(state, { loading: false });
-    case actionTypes.REMOVE_EXPERIENCE:
-      return updateObject(state, { loading: false });
-      
+      const addedExp = { ...state.profile, experience: action.experience };
+      return updateObject(state, { profile: addedExp, profileLoading: false });
+
+    case actionTypes.DELETE_EXPERIENCE:
+      const deletedExp = { ...state.profile, experience: action.experience };
+      return updateObject(state, { profile:deletedExp, profileLoading: false });
+
     case actionTypes.EDIT_PROFILE:
       return updateObject(state, action);
     case actionTypes.PROFILE_LOADING:

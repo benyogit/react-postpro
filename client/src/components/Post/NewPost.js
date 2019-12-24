@@ -102,9 +102,8 @@ class NewPost extends Component {
     } else if (!this.state.isFull) {
       return (
         <div className="post-form">
-          <div className="bg-primary p">
-            <h3>Say Something...</h3>
-          </div>
+          
+          <h1 className="large text-primary">Write Something</h1>
           <form className="form my-1" onSubmit={e => this.onSubmit(e)}>
             <input
               type="text"

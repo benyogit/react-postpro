@@ -22,7 +22,7 @@ export const signUp = (
 
     dispatch(checkAuthTimeOut(res.data.expiresIn));
   } catch (err) {
-    console.log(err.response.data.msg);
+    
     dispatch(authFailed(err.response.data.msg));
   }
 };
