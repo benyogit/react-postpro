@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import Moment from "react-moment";
+import moment from "moment";
+
 import PropTypes from "prop-types";
 
 /*
@@ -9,6 +11,13 @@ import PropTypes from "prop-types";
 */
 const PostItem = props => {
 
+  let dateFormat; 
+  const thisYear=new Date().getTime()
+  if(moment(props.post.date).isSame(thisYear, "year")){
+    dateFormat=<Moment format="MMM DD">{props.post.date}</Moment>;
+  }else{
+    dateFormat=<Moment format="MMM DD, YYYY">{props.post.date}</Moment>;
+  }
   return (
     <div className="post bg-white p-1 my-1">
       <div>
@@ -27,7 +36,7 @@ const PostItem = props => {
         </Link>
 
         <p className="post-date">
-          Posted on <Moment format="YYYY/MM/DD hh:mm">{props.post.date}</Moment>
+          Posted on {dateFormat}
         </p>
 
         <Fragment>

@@ -9,11 +9,11 @@ const EducationList = (props) => {
       <td>{edu.institute}</td>
       <td className="hide-sm">{edu.description}</td>
       <td>
-        <Moment format="MM/YY">{moment.utc(edu.from)}</Moment> -{" "}
+        <Moment format="MMM YYYY">{moment.utc(edu.from)}</Moment> -{" "}
         {edu.to === null ? (
           " Now"
         ) : (
-          <Moment format="MM/YY">{moment.utc(edu.to)}</Moment>
+          <Moment format="MMM YYYY">{moment.utc(edu.to)}</Moment>
         )}
       </td>
       <td>
@@ -32,10 +32,10 @@ const EducationList = (props) => {
       <table className="table">
         <thead>
           <tr>
-            <th>Institute</th>
+            <th className="hide-sm">Institute</th>
             <th className="hide-sm">Degree Or Certificate</th>
             <th className="hide-sm">Years</th>
-            <th />
+            <th  className="hide-sm"> Delete? </th >
           </tr>
         </thead>
         <tbody>{educations}</tbody>

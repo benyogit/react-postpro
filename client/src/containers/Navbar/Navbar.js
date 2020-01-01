@@ -2,6 +2,7 @@ import React, { Fragment, Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logOut} from "../../store/actions/index";
+import NavBar from "react-bootstrap/Navbar";
 
 class Navbar extends Component {
   render() {

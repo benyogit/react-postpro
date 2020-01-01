@@ -2,21 +2,28 @@ import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Moment from "react-moment";
+import moment from "moment";
 
 const ExperienceList = props => {
   const items = props.experience.map(exp => (
-    <Card  className="m-2" border="secondary" key={exp._id}>
+    <Card className="my-3" border="secondary" key={exp._id}>
       <Accordion.Toggle as={Card.Header} eventKey={exp._id}>
-        {exp.company + " " + exp.from +" " +exp.to}
+        <strong>{exp.company + "  "} </strong>
+        <Moment format="MMM YYYY">{moment.utc(exp.from)}</Moment>
+        {" - "}
+        {exp.to ? <Moment format="MMM YYYY">{moment.utc(exp.to)}</Moment> : "Now"}
       </Accordion.Toggle>
       <Accordion.Collapse eventKey={exp._id}>
         <Card.Body>
-          <Card.Title>{exp.title}</Card.Title>
-          <Card.Text >{exp.role} </Card.Text>
-          <Button variant="link" className="border-danger text-danger">Delete</Button>
+          <Card.Title>{exp.company }</Card.Title>
+          <Card.Subtitle>{exp.title}</Card.Subtitle>
+          <Card.Text>{exp.role} </Card.Text>
         </Card.Body>
       </Accordion.Collapse>
-      
+      <Card.Footer>
+        <Button variant="outline-danger">Delete</Button>
+      </Card.Footer>
     </Card>
   ));
   return (

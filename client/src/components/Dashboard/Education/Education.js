@@ -19,13 +19,14 @@ class Education extends Component {
     this.props.onAddEducation(this.state);
   };
   render() {
-    if(!this.props.loading && this.props.education){
+    if(!this.props.loading ){
       return (
         <Fragment>
-          <EducationList
+          { this.props.education?<EducationList
             delete={this.props.onDeleteEducation}
             education={this.props.education}
-          />
+          />:null}
+          
           <form onSubmit={this.onSubmit} className="form">
             <div className="form-group">
               <input
