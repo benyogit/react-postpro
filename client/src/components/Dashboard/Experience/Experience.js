@@ -22,8 +22,18 @@ class Experience extends Component {
     if(!this.props.loading ){
       return (
         <Fragment >
+
           <div className="m-2"> 
-          <ExperienceList experience={this.props.experience}></ExperienceList>
+          { 
+            this.props.experience?
+                  <ExperienceList 
+                    delete={this.props.onDeleteExperience} 
+                    experience={this.props.experience}
+                    />:null
+          
+          }
+          
+
           <h3>Add Some More Jobs</h3>
           <form onSubmit={this.onSubmit} className="form">
             <div className="form-group">

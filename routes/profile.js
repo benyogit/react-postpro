@@ -68,7 +68,7 @@ router.put(
       } else {
         profile.education.push(req.body);
         profile.save();
-        console.log("succes");
+        
         res.status(200).json({ education:profile.education });
       }
       
@@ -93,7 +93,7 @@ router.put(
         const index= profile.experience.find(exp => exp._id==req.body.id);
         profile.experience.splice(index,1);
         profile.save();
-        console.log(profile.experience);
+        
         res.status(200).json({ experience:profile.experience });
       }
       
@@ -125,7 +125,7 @@ router.put(
       } else {
         profile.experience.push(req.body);
         profile.save();
-        console.log(profile.experience);
+        
         res.status(200).json({ experience:profile.experience });
       }
       

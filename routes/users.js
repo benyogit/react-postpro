@@ -66,7 +66,7 @@ check('passwordConfirm', 'passwordConfirmation field must have the same value as
           );
 
     }catch(err){
-      console.log(err);
+      
       res.status(500).json({msg: "Server Error"});
     }
 } );

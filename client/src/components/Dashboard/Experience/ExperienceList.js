@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import moment from "moment";
 
 const ExperienceList = props => {
+  console.log(props);
   const items = props.experience.map(exp => (
     <Card className="my-3" border="secondary" key={exp._id}>
       <Accordion.Toggle as={Card.Header} eventKey={exp._id}>
@@ -22,7 +23,7 @@ const ExperienceList = props => {
         </Card.Body>
       </Accordion.Collapse>
       <Card.Footer>
-        <Button variant="outline-danger">Delete</Button>
+        <Button onClick={() => props.delete(exp._id) } variant="outline-danger">Delete</Button>
       </Card.Footer>
     </Card>
   ));

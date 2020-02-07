@@ -5,7 +5,8 @@ import {
   ADD_SKILL,
   DELETE_EDUCATION,
   ADD_EDUCATION,
-  ADD_EXPERIENCE
+  ADD_EXPERIENCE,
+  DELETE_EXPERIENCE
 } from "./actionTypes";
 import axios from "../../axios-utils";
 
@@ -132,6 +133,10 @@ export const deleteExperience = (id) => async dispatch => {
       "token"
     );
     const res = await axios.put(`/api/profile/self/experience/delete`, body, config);
+    dispatch({
+      type: DELETE_EXPERIENCE,
+      experience: res.data.experience
+    });
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
