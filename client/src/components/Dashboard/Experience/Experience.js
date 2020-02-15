@@ -48,7 +48,7 @@ class Experience extends Component {
             <div className="form-group">
               <input
                 type="text"
-                placeholder="Degree or Course"
+                placeholder="Title"
                 name="title"
                 onChange={this.onChange}
                 required
@@ -57,7 +57,7 @@ class Experience extends Component {
             <div className="form-group">
               <input
                 type="text"
-                placeholder="Degree or Course"
+                placeholder="Role"
                 name="role"
                 onChange={this.onChange}
                 required
