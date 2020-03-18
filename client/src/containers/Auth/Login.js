@@ -46,7 +46,6 @@ class Login extends Component {
               type="email"
               placeholder="Email Address"
               name="email"
-              id="email"
               value={this.state.email}
               onChange={e => this.onChange(e)}
               required

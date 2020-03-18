@@ -112,7 +112,7 @@ router.get("/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     
-
+    
     const posts = await Post.find().sort({ date: -1 });
     res.status(200).json({ posts });
   } catch (err) {

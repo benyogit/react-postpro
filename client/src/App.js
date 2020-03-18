@@ -50,7 +50,7 @@ const App = () => {
       <BrowserRouter>
         <Fragment>
           <Navbar />
-          <section className="container">
+          <div className="container">
             <Switch>
               <Route exact path="/" component={Landing}/>
               <Route exact path="/posts/:id" component={FullPost}/>
@@ -61,7 +61,7 @@ const App = () => {
               <PrivateRoute exact path="/dashboard" component={Dashboard}/>
               <Redirect to="/"> </Redirect>
             </Switch>
-          </section>
+          </div>
         </Fragment>
       </BrowserRouter>
     </Provider>
