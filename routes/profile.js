@@ -34,7 +34,6 @@ router.put(
         const index= profile.education.find(edu => edu._id==req.body.id);
         profile.education.splice(index,1);
         profile.save();
-        console.log(profile.education);
         res.status(200).json({ education:profile.education });
       }
       

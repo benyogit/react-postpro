@@ -2,12 +2,15 @@ const express = require("express");
 const app = express();
 const path = require('path');
 const dotenv= require('dotenv');
+
 dotenv.config();
+
 const dbConnect = require("./config/db");
 const usersRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const postsRoutes = require("./routes/posts");
 const profileRoutes = require("./routes/profile");
+const uploadRoutes = require("./routes/upload");
 
 dbConnect();
 
@@ -32,6 +35,7 @@ app.use("/api/users", usersRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/upload", uploadRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Set static folder
@@ -46,5 +50,5 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   
-  console.log("Server started on port : " + PORT);
+  console.log(`Server started on port : ${PORT} and ${process.env.PORT}`);
 });

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const config = require('config');
 
 
-console.log(process.env.mongoURI);
+
 let db = process.env.mongoURI;
 if(process.env.NODE_ENV === 'production'){
 

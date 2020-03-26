@@ -112,6 +112,10 @@ class NewPost extends Component {
               placeholder="Set Title"
               onChange={e => this.onTitleChange(e)}
             />
+             <div className="form-group">
+              <label for="exampleFormControlFile1">Example file input</label>
+              <input type="file" className="form-control-file" id="exampleFormControlFile1"/>
+             </div>
             <BlockStyleControls
               editorState={editorState}
               onToggle={this.toggleBlockType}

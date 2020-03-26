@@ -38,10 +38,10 @@ router.post(
       });
 
       const post = await newPost.save();
-      console.log(post);
+      
       res.json(post);
     } catch (err) {
-      console.error(err.message);
+      
       res.status(500).json({msg: "Server Error"});
     }
   }
@@ -83,7 +83,7 @@ router.post(
 
       res.json(post.comments);
     } catch (err) {
-      console.error(err.message);
+      
       res.status(500).send('Server Error');
     }
   }
