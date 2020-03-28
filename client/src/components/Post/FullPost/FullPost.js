@@ -32,6 +32,7 @@ class FullPost extends Component {
 
 
     this.props.onGetPost(this.props.match.params.id);
+    console.log(this.props.post);
 
   }
 
@@ -39,13 +40,15 @@ class FullPost extends Component {
 
 
 
-    if (this.props.isLoading && this.props.post===null ) {
+    if (this.props.isLoading || this.props.post===null ) {
       return <Spiner />;
     } else {
       
       return (
         <Fragment >
           <h1 className="headline large">{this.state.title}</h1>
+          
+          <img className="img-fluid" alt="Responsive image" src={`https://postpro-images.s3.eu-central-1.amazonaws.com/${this.props.post.imageUrl}`}/>
           <Editor editorState={this.state.editorState}>
           </Editor>
           {!this.props.isLoading && this.props.post ?<CommentSection post={this.props.post} 

@@ -4,7 +4,8 @@ const uuid = require('uuid/v1');
 const { check, validationResult } = require("express-validator");
 const s3 = new AWS.S3({
     accessKeyId: process.env.S3_ACCESS_KEY_ID, 
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY, 
+    region : "eu-central-1"
 
 });
 const router = express.Router();
@@ -19,7 +20,7 @@ router.get('/',auth, (req, res)=> {
         "putObject",
          { 
         Bucket: "postpro-images", 
-        ContentType: "images/jpeg",
+        ContentType: "image/jpeg",
         Key: key
 
         }, 

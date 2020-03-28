@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios-utils";
-
+import axiosS3 from "axios";
 const config = {
   headers: {
     "Content-Type": "application/json"
@@ -25,14 +25,18 @@ export const getPost = postId => async dispatch => {
   }
 };
 
-export const addPost = (title, text) => async dispatch => {
-  const body = JSON.stringify({ title, text });
+export const addPost = (title, text, file) => async dispatch => {
+  
 
   try {
     dispatch(fetchPostsStart());
+
     axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
       "token"
     );
+    const signedKeyRes = await axios.get("/api/upload", config);
+    await axiosS3.put(signedKeyRes.data.url, file, {headers:{'Content-Type': file.type}});
+    const body = JSON.stringify({title, text, imageUrl: signedKeyRes.data.key});
     const res = await axios.post("/api/posts", body, config);
 
     dispatch({
@@ -40,9 +44,10 @@ export const addPost = (title, text) => async dispatch => {
       post: res.data
     });
   } catch (err) {
+    console.log(err);
     dispatch({
       type: actionTypes.POST_ERROR,
-      msg: err.response.msg
+      msg: err
     });
   }
 };

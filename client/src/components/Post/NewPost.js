@@ -19,6 +19,7 @@ class NewPost extends Component {
     this.state = {
       title: "",
       text: "",
+      file:null,
       isFull: false,
       editorState: EditorState.createEmpty()
     };
@@ -67,19 +68,25 @@ class NewPost extends Component {
 
     this.setState({ ...this.state, [e.target.name]: e.target.value });
   };
+  onFileChange = e =>{
+
+    this.setState({ ...this.state, file: e.target.files[0] });
+  }
   onSubmit = e => {
     e.preventDefault();
 
     if (this.state.title.length > 0) {
       /* && rawString.length > 0) {*/
-      console.log("in raw string");
+      
       this.props.onAddPost(
         this.state.title,
-        JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent()))
+        JSON.stringify(convertToRaw(this.state.editorState.getCurrentContent())),
+        this.state.file
       );
       this.setState({ ...this.state, isFull: true });
     }
   };
+
   render() {
     const { editorState } = this.state;
     // If the user changes block type before entering any text, we can
@@ -113,8 +120,8 @@ class NewPost extends Component {
               onChange={e => this.onTitleChange(e)}
             />
              <div className="form-group">
-              <label for="exampleFormControlFile1">Example file input</label>
-              <input type="file" className="form-control-file" id="exampleFormControlFile1"/>
+              <label htmlFor="exampleFormControlFile1">Example file input</label>
+              <input onChange={this.onFileChange} type="file" className="form-control-file" id="exampleFormControlFile1"/>
              </div>
             <BlockStyleControls
               editorState={editorState}
@@ -254,7 +261,7 @@ const mapStateToProps = state => {
 
 const mapsDispatchToProps = dispatch => {
   return {
-    onAddPost: (title, text) => dispatch(addPost(title, text))
+    onAddPost: (title, text, file) => dispatch(addPost(title, text, file))
   };
 };
 
