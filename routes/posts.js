@@ -4,6 +4,7 @@ const auth = require("./midlleware/auth");
 const { check, validationResult } = require("express-validator");
 const User = require("../model/Users");
 const Post = require("../model/Posts");
+const s3   = require('../config/s3');
 
 // @route    POST api/posts
 // @desc     Create a post
@@ -134,9 +135,13 @@ router.delete("/:id", auth, async (req, res) => {
     if (post.user.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'User not authorized' });
     }
+    await s3.deleteObject({Bucket: "postpro-images", Key: post.imageUrl}, (err, data)=>{
+      if(err){
+        res.status(400).json({ msg: 'Server error' });
+      }
 
+    });
     await post.remove();
-
     res.json({ msg: 'Post removed' });
   } catch (err) {
     console.error(err.message);
