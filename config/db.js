@@ -4,9 +4,13 @@ const config = require('config');
 
 
 let db = process.env.mongoURI;
+console.log(encodeURI(db));
 if(process.env.NODE_ENV === 'production'){
 
   db= process.env.mongoURI;
+  console.log(encodeURI(db));
+
+  
 }
 
 
@@ -25,7 +29,6 @@ const connectDB = async () => {
   } catch (err) {
     
     console.error(err.message);
-    console.error(err);
     // Exit process with failure
     process.exit(1);
   }
