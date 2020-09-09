@@ -4,10 +4,8 @@ const config = require('config');
 
 
 let db = process.env.mongoURI;
-console.log( process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'production'){
 
-  console.log( process.env.mongoURI);
   db= process.env.mongoURI;
 }
 
@@ -15,7 +13,7 @@ if(process.env.NODE_ENV === 'production'){
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(db, {
+    await mongoose.connect(encodeURI(db), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
