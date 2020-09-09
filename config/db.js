@@ -4,6 +4,7 @@ const config = require('config');
 
 
 let db = process.env.mongoURI;
+console.log( process.env.NODE_ENV);
 if(process.env.NODE_ENV === 'production'){
 
   db= process.env.mongoURI;

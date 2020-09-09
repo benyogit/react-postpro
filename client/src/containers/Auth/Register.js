@@ -67,6 +67,7 @@ class Register extends Component {
           <div className="form-group">
             <input
               type="text"
+              className="form-control"
               placeholder="Name"
               name="name"
               value={this.state.name}
@@ -78,6 +79,7 @@ class Register extends Component {
               type="email"
               placeholder="Email Address"
               name="email"
+              className="form-control"
               value={this.state.email}
               onChange={e => this.onChange(e)}
             />
@@ -91,6 +93,7 @@ class Register extends Component {
               type="password"
               placeholder="Password"
               name="password"
+              className="form-control"
               value={this.state.password}
               onChange={e => this.onChange(e)}
             />
@@ -100,6 +103,7 @@ class Register extends Component {
               type="password"
               placeholder="Confirm Password"
               name="passwordConfirm"
+              className="form-control"
               value={this.state.password2}
               onChange={e => this.onChange(e)}
             />

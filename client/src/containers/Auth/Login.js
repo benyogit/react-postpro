@@ -47,15 +47,18 @@ class Login extends Component {
               placeholder="Email Address"
               name="email"
               value={this.state.email}
+              className="form-control"
               onChange={e => this.onChange(e)}
               required
             />
+            <small id="emailHelp" className="form-text text-muted">Your Email is not shared with anyone.</small>
           </div>
           <div className="form-group">
             <input
               type="password"
               placeholder="Password"
               name="password"
+              className="form-control"
               value={this.state.password}
               onChange={e => this.onChange(e)}
               minLength="6"
