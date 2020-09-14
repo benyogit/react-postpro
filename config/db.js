@@ -14,13 +14,14 @@ if(process.env.NODE_ENV === 'production'){
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(encodeURI(db), {
+    const con = await mongoose.connect(encodeURI(db), {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true
       
     });
-    console.log("MongoDb connected");
+
+    console.log(con.models);
 
     
   } catch (err) {
