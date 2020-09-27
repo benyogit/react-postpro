@@ -116,7 +116,7 @@ router.get("/", async (req, res) => {
     
     
     const posts = await Post.find().sort({ date: -1 });
-    res.status(200).json({ "posts":"blah" });
+    res.status(200).json({ posts });
   } catch (err) {
 
     res.status(500).json({msg : "Server Error"});
