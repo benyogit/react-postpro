@@ -21,7 +21,7 @@ const connectDB = async () => {
       
     });
 
-    console.log(con.models);
+    console.log("Connection is Good");
 
     
   } catch (err) {
