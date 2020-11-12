@@ -14,7 +14,7 @@ const auth = require("./midlleware/auth");
 
 router.get('/',auth, (req, res)=> {
 
-    console.log("reach here in upload");
+    
     const key = `${req.user.id}/${uuid()}.jpeg`;
     s3.getSignedUrl(
         "putObject",
