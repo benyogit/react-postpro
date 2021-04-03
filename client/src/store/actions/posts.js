@@ -44,7 +44,6 @@ export const addPost = (title, text, file) => async dispatch => {
       post: res.data
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       type: actionTypes.POST_ERROR,
       msg: err
@@ -93,14 +92,14 @@ export const deleteComment = (postId, commentId) => async dispatch => {
 };
 export const unLikePost = id => {
   return dispatch => {
-    console.log("in like posts" + id);
+
     axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
       "token"
     );
     axios
       .put(`/api/posts/unlike/${id}`)
       .then(res => {
-        console.log(res.data);
+        
         dispatch({
           type: actionTypes.UPDATE_LIKES,
           id,
@@ -118,14 +117,13 @@ export const unLikePost = id => {
 
 export const likePost = id => {
   return dispatch => {
-    console.log("in like posts" + id);
+
     axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
       "token"
     );
     axios
       .put(`/api/posts/like/${id}`)
       .then(res => {
-        console.log(res.data);
         dispatch({
           type: actionTypes.UPDATE_LIKES,
           id,
@@ -142,7 +140,7 @@ export const likePost = id => {
 };
 export const deletePost = postId => {
   return dispatch => {
-    console.log("in like posts" + postId);
+
     axios.defaults.headers.common["x-auth-token"] = localStorage.getItem(
       "token"
     );
@@ -155,7 +153,7 @@ export const deletePost = postId => {
         });
       })
       .catch(error => {
-        console.log(error.response.data);
+
         dispatch({
           type: actionTypes.POST_ERROR,
           msg: error.response.data.msg
@@ -191,7 +189,7 @@ export const fetchPosts = () => {
       .get("api/posts")
       .then(response => {
         const fetchPosts = [];
-        console.log("in Fetch Posts");
+        
         for (let key in response.data.posts) {
           fetchPosts.push({
             ...response.data.posts[key],

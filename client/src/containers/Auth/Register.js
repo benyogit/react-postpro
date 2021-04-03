@@ -45,7 +45,7 @@ class Register extends Component {
       
     }
     if (checkValidity) {
-      console.log("valid : go to actions");
+      
       const { email, password, passwordConfirm, name } = { ...this.state };
       this.props.onSignUp(email, password, passwordConfirm, name);
     }else{

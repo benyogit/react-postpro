@@ -18,7 +18,6 @@ const config = {
 
 export const getProfile = () => async dispatch => {
   try {
-    console.log("in get profile");
     dispatch({
       type: PROFILE_LOADING
     });
@@ -27,7 +26,6 @@ export const getProfile = () => async dispatch => {
       "token"
     );
     const res = await axios.get(`/api/profile/self`);
-    console.log(res.data.profile);
     dispatch({
       type: GET_PROFILE,
       profile: res.data.profile
@@ -54,13 +52,11 @@ export const deleteEducation = eduId => async dispatch => {
     );
 
     const res = await axios.put(`/api/profile/self/education/delete`,body, config);
-    console.log(res);
     dispatch({
       type: DELETE_EDUCATION,
       education: res.data.education
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       type: PROFILE_ERROR,
       msg: "error in Server"
@@ -70,7 +66,6 @@ export const deleteEducation = eduId => async dispatch => {
 
 export const addEducation = form => async dispatch => {
   const body = JSON.stringify( {...form} );
-  console.log(form);
   try {
     dispatch({
       type: PROFILE_LOADING
@@ -80,13 +75,11 @@ export const addEducation = form => async dispatch => {
       "token"
     );
     const res = await axios.put(`/api/profile/self/education`, body, config);
-    console.log(res);
     dispatch({
       type: ADD_EDUCATION,
       education: res.data.education
     });
   } catch (err) {
-    console.log(err);
     dispatch({
       
       type: PROFILE_ERROR,

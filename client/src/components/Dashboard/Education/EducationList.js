@@ -3,7 +3,6 @@ import Moment from "react-moment";
 import moment from 'moment';
 
 const EducationList = (props) => {
-    console.log(props);
   const educations = props.education.map(edu => (
     <tr key={edu._id}>
       <td>{edu.institute}</td>

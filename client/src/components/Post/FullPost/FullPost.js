@@ -19,21 +19,14 @@ class FullPost extends Component {
   }
   componentDidUpdate(prevProps) {
 
-    
-    if(this.props.post !== prevProps.post){
-      
-      
+    if(this.props.post !== prevProps.post){ 
       const text= JSON.parse(this.props.post.text);
       this.setState({ editorState: EditorState.createWithContent(convertFromRaw(text)), 
         title:this.props.post.title});
     }
   }
   componentDidMount(){
-
-
     this.props.onGetPost(this.props.match.params.id);
-    console.log(this.props.post);
-
   }
 
   render() {
@@ -45,10 +38,10 @@ class FullPost extends Component {
     } else {
       
       return (
-        <Fragment >
+        <Fragment  className="mt-10">
           <h1 className="headline large">{this.state.title}</h1>
           
-          <img className="img-fluid" alt="Responsive image" src={`https://postpro-images.s3.eu-central-1.amazonaws.com/${this.props.post.imageUrl}`}/>
+          <img className="center img-thumbnail rounded float-center" alt="Responsive image" src={`https://postpro-images.s3.eu-central-1.amazonaws.com/${this.props.post.imageUrl}`}/>
           <Editor editorState={this.state.editorState}>
           </Editor>
           {!this.props.isLoading && this.props.post ?<CommentSection post={this.props.post} 
@@ -60,7 +53,7 @@ class FullPost extends Component {
           </CommentSection>:<Spiner />
           }
 
-          </Fragment>
+        </Fragment>
       );
     }
     

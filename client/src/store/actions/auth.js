@@ -42,7 +42,6 @@ export const authSuccess = (token, userId, expiresIn) => {
 export const checkAuthTimeOut = expirationTime => {
   return dispatch => {
     setTimeout(() => {
-      console.log("logingOut");
       dispatch(logOut());
     }, expirationTime * 1000);
   };
@@ -60,7 +59,7 @@ export const logOut = () => {
         token: null
       });
     } catch (err) {
-      console.log(err.response.data.msg);
+      
       dispatch(authFailed(err.response.data.msg));
     }
   };
@@ -101,7 +100,7 @@ export const signIn = (email, password) => async dispatch => {
 
     dispatch(checkAuthTimeOut(res.data.expiresIn));
   } catch (err) {
-    console.log(err.response.data.msg);
+
     dispatch(authFailed(err.response.data.msg));
   }
 };
