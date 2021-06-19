@@ -3,7 +3,7 @@ const config = require('config');
 
 module.exports =(req, res, next)=>{
 
-    const token= req.header('x-auth-token');
+    const token = req.header('x-auth-token');
 
     
     if(!token){
@@ -12,12 +12,14 @@ module.exports =(req, res, next)=>{
     }
 
     try{
-        const decodedTok= jwt.verify(token, process.env.JWT_SECRET);
+        const decodedTok = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decodedTok.user;
         next();
 
     }catch(err){
         console.log("Bad Token");
+        console.log(process.env.JWT_SECRET);
+        console.log(err);
 
         return res.status(401).json({msg:" Invalid Token"});
     }

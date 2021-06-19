@@ -32,7 +32,7 @@ check("email","Bad Credintials").not().isEmpty()
     try {
         const {email, password} = req.body;
 
-        let user= await User.findOne({email});
+        let user = await User.findOne({email});
         if(! user){
             return res.status(400).json({msg: "Bad credintials"});
         }
